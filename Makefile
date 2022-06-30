@@ -1,37 +1,41 @@
-SERVER		= server
-CLIENT		= client
-CLIENT_FILE	= client_file/client.c client_file/diplay.c
-CLIENT_BONUS = client_file/client_bonus.c client_file/diplay.c
-SERVER_FILE	= server_file/server_util.c server_file/server.c
-SERVER_BONUS = server_file/server_util.c server_file/server_bonus.c
-UTIL_FILE	= util/util.c
-INCLUDE =	client_file/client.h server_file/server.h util/util.h
-CC			= cc
-CFLAGS		= -Wall -Werror -Wextra
-RM			= rm -rfv
+SERVER = server
+CLIENT = client
+SERVER_B = server
+CLIENT_B = client
+SERVER_FILE = server_file/server.c server_file/server_util.c util/util.c
+SERVER_FILE_BONUS = server_file/server_bonus.c server_file/server_util.c util/util.c
+CLIENT_FILE = client_file/client.c client_file/diplay.c util/util.c
+CLIENT_FILE_BONUS = client_file/client.c client_file/diplay.c util/util.c
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -rfv
 
-OBJ		=	$(CLIENT_FILE:.c=.o) $(SERVER_FILE:.c=.o)
-OBJ_B	=	$(CLIENT_BONUS:.c=.o) $(SERVER_BONUS:.c=.o)
+OBJ_C = $(CLIENT_FILE:.c=.o) 
+OBJ_S = $(SERVER_FILE:.c=.o)
+OBJ_BC = $(CLIENT_FILE_BONUS:.c=.o) 
+OBJ_BS = $(SERVER_FILE_BONUS:.c=.o)
 
-all:		$(SERVER) $(CLIENT)
+all: $(SERVER) $(CLIENT)
 
-bonus:		$(SERVER_BONUS) $(CLIENT_BONUS)
+bonus: $(SERVER_B) $(CLIENT_B)
 
-$(SERVER_BONUS): $(OBJ_B)
-		$(CC) $(CFLAGS) -o $(SERVER) $(SERVER_BONUS) $(UTIL_FILE)
+$(SERVER_B):	$(OBJ_BS)
+		$(CC) $(CFLAGS) -o $(SERVER) $(OBJ_BS) 
 
-$(CLIENT_BONUS): $(OBJ_B)
-		$(CC) $(CFLAGS) -o $(CLIENT) $(CLIENT_BONUS) $(UTIL_FILE)
+$(CLIENT_B):	$(OBJ_BC)
+		$(CC) $(CFLAGS) -o $(CLIENT) $(OBJ_BC)
 
-$(SERVER):	$(OBJ)
-		$(CC) $(CFLAGS) -o $(SERVER) $(SERVER_FILE) $(UTIL_FILE)
+$(SERVER):	$(OBJ_S)
+		$(CC) $(CFLAGS) -o $(SERVER) $(OBJ_S) 
 
-$(CLIENT):	$(OBJ)
-		$(CC) $(CFLAGS) -o $(CLIENT) $(CLIENT_FILE) $(UTIL_FILE)
+$(CLIENT):	$(OBJ_C)
+		$(CC) $(CFLAGS) -o $(CLIENT) $(OBJ_C)
 
 clean:
-			@$(RM) $(OBJ)
-			@$(RM) $(OBJ_B)
+			@$(RM) $(OBJ_C)
+			@$(RM) $(OBJ_S)
+			@$(RM) $(OBJ_BC)
+			@$(RM) $(OBJ_BS)
 
 fclean:		clean
 			@$(RM) $(SERVER) $(CLIENT)

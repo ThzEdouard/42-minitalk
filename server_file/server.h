@@ -16,8 +16,6 @@ typedef struct s_bit
     int         pid_client;
 }               t_bit;
 
-t_bit   g_bit;
-
 void	ft_error(void);
 void    ft_start(void);
 void	ft_send_msg(void);

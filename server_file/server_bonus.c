@@ -4,6 +4,8 @@
 
 #include "server.h"
 
+t_bit   g_bit;
+
 static int	get_pid(int pid)
 {
     if (pid <= 0)
