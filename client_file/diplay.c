@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 20:34:22 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/06/28 14:50:07 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:14:11 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	ft_end(void)
 
 void	ft_received_send(void)
 {
-    putstr(GREEN);
-    putstr("   -------------------------received ");
-    putstr("signal-------------------------\n");
-    putstr(RESET);
-    putstr("           The server has successfully received your signal !\n");
-    putstr(GREEN);
-    putstr("   -------------------------------");
-    putstr("END-------------------------------\n");
-    putstr(RESET);
+	putstr(GREEN);
+	putstr("   -------------------------received ");
+	putstr("signal-------------------------\n");
+	putstr(RESET);
+	putstr("           The server has successfully received your signal !\n");
+	putstr(GREEN);
+	putstr("   -------------------------------");
+	putstr("END-------------------------------\n");
+	putstr(RESET);
 }
 
 void	ft_display_error_kill(void)
@@ -70,5 +70,3 @@ void	ft_error_sig(void)
 	ft_end();
 	exit(0);
 }
-
-

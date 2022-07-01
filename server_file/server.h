@@ -1,9 +1,17 @@
-//
-// Created by Edouard Flaquet on 27/06/2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/01 15:22:41 by eflaquet          #+#    #+#             */
+/*   Updated: 2022/07/01 15:23:29 by eflaquet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef MINITALK_42_SERVER_H
-#define MINITALK_42_SERVER_H
+#ifndef SERVER_H
+# define SERVER_H
 
 # include <signal.h>
 # include <sys/types.h>
@@ -11,15 +19,15 @@
 
 typedef struct s_bit
 {
-    char        octect;
-    char        *str;
-    int         pid_client;
-}               t_bit;
+	char		octect;
+	char		*str;
+	int			pid_client;
+}				t_bit;
 
 void	ft_error(void);
-void    ft_start(void);
+void	ft_start(void);
 void	ft_send_msg(void);
 void	ft_last_msg(void);
 void	ft_start_mgs(void);
 
-#endif //MINITALK_42_SERVER_H
+#endif
