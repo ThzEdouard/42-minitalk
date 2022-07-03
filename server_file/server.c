@@ -6,13 +6,13 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 15:22:10 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/07/01 15:28:42 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/07/03 14:03:21 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 
-t_bit	g_bit;
+int	g_pid_client;
 
 static int	get_pid(int pid)
 {
@@ -26,25 +26,26 @@ static int	get_pid(int pid)
 	return (0);
 }
 
-int	get_received(void)
+int	get_received(char octect)
 {
-	if (!g_bit.octect)
+	static char	*str = NULL;
+
+	if (!octect)
 	{
-		if (kill(g_bit.pid_client, SIGUSR1) != 0)
+		if (kill(g_pid_client, SIGUSR1) != 0)
 			ft_error();
-		putstr(g_bit.str);
-		free(g_bit.str);
+		putstr(str);
+		free(str);
 		putstr("\n");
-		g_bit.str = NULL;
-		g_bit.pid_client = 0;
+		str = NULL;
+		g_pid_client = 0;
 		ft_last_msg();
 		return (1);
 	}
-	g_bit.str = ft_strjoin(g_bit.str, g_bit.octect);
-	if (!g_bit.str)
+	str = ft_strjoin(str, octect);
+	if (!str)
 		exit(0);
-	g_bit.octect = 0;
-	if (kill(g_bit.pid_client, SIGUSR2) != 0)
+	if (kill(g_pid_client, SIGUSR2) != 0)
 		ft_error();
 	return (0);
 }
@@ -52,20 +53,22 @@ int	get_received(void)
 void	listen(int sig, siginfo_t *info, void *tmp)
 {
 	static int	i = 0;
+	static char	octect = 0;
 
 	(void)tmp;
-	if (!g_bit.pid_client)
-		g_bit.pid_client = info->si_pid;
+	if (!g_pid_client)
+		g_pid_client = info->si_pid;
 	if (sig == SIGUSR2)
-		g_bit.octect |= 1;
+		octect |= 1;
 	if (++i == 8)
 	{
 		i = 0;
-		if (get_received())
+		if (get_received(octect))
 			return ;
+		octect = 0;
 	}
 	else
-		g_bit.octect <<= 1;
+		octect <<= 1;
 }
 
 int	main(void)
@@ -74,9 +77,7 @@ int	main(void)
 
 	if (get_pid(getpid()))
 		exit(0);
-	g_bit.str = NULL;
-	g_bit.octect = 0;
-	g_bit.pid_client = 0;
+	g_pid_client = 0;
 	sa.sa_sigaction = listen;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
