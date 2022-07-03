@@ -46,10 +46,10 @@ void	kill_str(int pid, int i)
 	{
 		while (i--)
 		{
-			if (*g_str & 0 << i)
-				kill(pid_s, SIGUSR1);
-			else
+			if (*g_str & 1 << i)
 				kill(pid_s, SIGUSR2);
+			else
+				kill(pid_s, SIGUSR1);
 			usleep(80);
 		}
 	}
