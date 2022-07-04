@@ -10,9 +10,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -rfv
 
-OBJ_C = $(CLIENT_FILE:.c=.o) 
+OBJ_C = $(CLIENT_FILE:.c=.o)
 OBJ_S = $(SERVER_FILE:.c=.o)
-OBJ_BC = $(CLIENT_FILE_BONUS:.c=.o) 
+OBJ_BC = $(CLIENT_FILE_BONUS:.c=.o)
 OBJ_BS = $(SERVER_FILE_BONUS:.c=.o)
 
 all: $(SERVER) $(CLIENT)
@@ -20,13 +20,13 @@ all: $(SERVER) $(CLIENT)
 bonus: $(SERVER_B) $(CLIENT_B)
 
 $(SERVER_B):	$(OBJ_BS)
-		$(CC) $(CFLAGS) -o $(SERVER_B) $(OBJ_BS) 
+		$(CC) $(CFLAGS) -o $(SERVER_B) $(OBJ_BS)
 
 $(CLIENT_B):	$(OBJ_BC)
 		$(CC) $(CFLAGS) -o $(CLIENT_B) $(OBJ_BC)
 
 $(SERVER):	$(OBJ_S)
-		$(CC) $(CFLAGS) -o $(SERVER) $(OBJ_S) 
+		$(CC) $(CFLAGS) -o $(SERVER) $(OBJ_S)
 
 $(CLIENT):	$(OBJ_C)
 		$(CC) $(CFLAGS) -o $(CLIENT) $(OBJ_C)

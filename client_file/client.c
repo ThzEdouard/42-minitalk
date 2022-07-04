@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:58:05 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/07/04 17:41:39 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:49:09 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	get_args(int args, int pid)
 {
 	if (args != 3)
 	{
-		putstr("utilisation : ./client pid 'message'\n");
+		putstr("use : ./client pid 'message'\n");
 		ft_end();
 		exit(0);
 	}
