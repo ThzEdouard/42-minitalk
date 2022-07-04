@@ -36,32 +36,29 @@ static void	get_args(int args, int pid, char **argv)
     }
 }
 
-void	kill_str(int pid, int i)
+void	kill_str(int pid)
 {
     static int	pid_s = 0;
-
+    static int  i = 8;
     if (!pid_s && pid != -1)
         pid_s = pid;
+    if (i == 0) {
+        g_str++;
+        i = 8;
+    }
     if (*g_str)
     {
-        while (i--)
-        {
+        i--;
             if (*g_str & 1 << i)
                 kill(pid_s, SIGUSR2);
             else
                 kill(pid_s, SIGUSR1);
-            usleep(80);
-        }
     }
     else
     {
-        while (i--)
-        {
             kill(pid_s, SIGUSR1);
-            usleep(80);
             if (i == 0)
                 pid_s = 0;
-        }
     }
 }
 
@@ -75,8 +72,7 @@ void	listen(int sig)
 	}
     else if (sig == SIGUSR2)
     {
-        g_str++;
-        kill_str(-1, 8);
+        kill_str(-1);
     }
 }
 
@@ -93,7 +89,7 @@ int	main(int argc, char **argv)
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 		ft_error_sig();
     g_str = argv[2];
-    kill_str(ft_atoi(argv[1]), 8);
+    kill_str(ft_atoi(argv[1]));
 	while (1)
 		pause();
 	return (0);

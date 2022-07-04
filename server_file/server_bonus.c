@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 15:21:43 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/07/04 13:25:42 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/07/04 14:36:21 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	get_received(char octect)
     str = ft_strjoin(str, octect);
     if (!str)
         exit(0);
-    if (kill(g_pid_client, SIGUSR2) != 0)
-        ft_error();
     return (0);
 }
 
@@ -60,7 +58,14 @@ void	listen(int sig, siginfo_t *info, void *tmp)
     if (!g_pid_client)
         g_pid_client = info->si_pid;
     if (sig == SIGUSR2)
+    {
+        octect <<= 1;
         octect |= 1;
+    }
+    if (sig == SIGUSR1)
+    {
+        octect <<= 1;
+    }
     if (++i == 8)
     {
         i = 0;
@@ -68,8 +73,8 @@ void	listen(int sig, siginfo_t *info, void *tmp)
             return ;
         octect = 0;
     }
-    else
-        octect <<= 1;
+    if (kill(g_pid_client, SIGUSR2) != 0)
+        ft_error();
 }
 
 int	main(void)
