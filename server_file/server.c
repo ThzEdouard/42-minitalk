@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 15:22:10 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/07/04 17:23:11 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:41:53 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ int	get_received(char octect)
 	{
 		if (kill(g_pid_client, SIGUSR1) != 0)
 			ft_error();
-		putstr(str);
-		free(str);
+		if (str)
+		{
+			putstr(str);
+			free(str);
+		}
 		putstr("\n");
 		str = NULL;
 		g_pid_client = 0;
