@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:58:05 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/07/04 19:22:58 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:24:41 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	get_args(int args, int pid)
 	}
 }
 
-static void	kills(int i)
+static void	kills(int pid_s, int i)
 {
 	if (i == 0)
 	{
@@ -60,13 +60,13 @@ void	kill_str(int pid)
 	{
 		i--;
 		if (*g_str & 1 << i)
-			kills(1);
+			kills(pid_s, 1);
 		else
-			kills(0);
+			kills(pid_s, 0);
 	}
 	else
 	{
-		kills(0);
+		kills(pid_s, 0);
 		if (i == 0)
 			pid_s = 0;
 	}
