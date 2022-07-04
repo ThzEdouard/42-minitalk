@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:58:05 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/07/04 17:49:09 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:22:58 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ static void	get_args(int args, int pid)
 	}
 }
 
+static void	kills(int i)
+{
+	if (i == 0)
+	{
+		if (kill(pid_s, SIGUSR1) != 0)
+			ft_display_error_kill();
+	}
+	else
+	{
+		if (kill(pid_s, SIGUSR2) != 0)
+			ft_display_error_kill();
+	}
+}
+
 void	kill_str(int pid)
 {
 	static int	pid_s = 0;
@@ -46,13 +60,13 @@ void	kill_str(int pid)
 	{
 		i--;
 		if (*g_str & 1 << i)
-			kill(pid_s, SIGUSR2);
+			kills(1);
 		else
-			kill(pid_s, SIGUSR1);
+			kills(0);
 	}
 	else
 	{
-		kill(pid_s, SIGUSR1);
+		kills(0);
 		if (i == 0)
 			pid_s = 0;
 	}
